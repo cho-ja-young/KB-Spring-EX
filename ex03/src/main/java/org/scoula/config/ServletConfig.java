@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
-@ComponentScan(basePackages = {"org.scoula.exception", "org.scoula.controller"})
+@ComponentScan(basePackages = {"org.scoula.controller", "org.scoula.exception","org.scoula.ex03.controller"})
 public class ServletConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -33,11 +33,11 @@ public class ServletConfig implements WebMvcConfigurer {
         registry.viewResolver(bean);
     }
 
-    // 📍 Servlet 3.0 파일 업로드 설정
+    // Servlet 3.0 파일 업로드 사용시 - MultipartResolver 빈 등록
     @Bean
     public MultipartResolver multipartResolver() {
-        StandardServletMultipartResolver resolver =
-                new StandardServletMultipartResolver();
+        StandardServletMultipartResolver resolver = new StandardServletMultipartResolver();
+
         return resolver;
     }
 
