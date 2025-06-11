@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--실제 사용시 네임스페이스를 -->
+<mapper namespace="org.scoula.todo.mapper.TodoMapper">
+<!--    여기에 SQL 매핑 정의 -->
+    <insert id="insertTodo" parameterType="org.scoula.todo.domain.TodoDTO">
+        INSERT INTO todo(title, description, done) VALUES (#{title}, #{description}, false)
+    </insert>
+
+    <update id="updateTodo">
+        UPDATE todo
+        SET done = NOT(done)
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteTodo">
+        UPDATE todo
+        SET done = NOT(done)
+        WHERE id = #{id}
+    </delete>
+</mapper>
