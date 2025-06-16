@@ -53,6 +53,11 @@ import javax.sql.DataSource;
         sqlSessionFactory.setConfigLocation(applicationContext.getResource("classpath:/mybatis-config.xml"));
         sqlSessionFactory.setDataSource(dataSource());
 
+//        // ✅ Mapper XML 위치 설정
+//        sqlSessionFactory.setMapperLocations(
+//                applicationContext.getResources("classpath:/org/scoula/board/mapper/*.xml")
+//        );
+
         return (SqlSessionFactory) sqlSessionFactory.getObject();
     }
 
