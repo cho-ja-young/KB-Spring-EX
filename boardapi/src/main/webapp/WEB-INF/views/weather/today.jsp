@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>오늘의 날씨</title>
@@ -118,6 +119,16 @@
         .home-button button:hover {
             background-color: #002f2f;
         }
+
+        .error-box {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
     </style>
     <script>
         function searchWeather() {
@@ -134,39 +145,50 @@
 </head>
 <body>
 <div class="weather-container">
+
     <div class="city-name">${city}</div>
 
-    <div class="weather-description">
-        <span>오늘의 날씨: ${weather.weather[0].description}</span>
-        <img class="weather-icon" src="${iconUrl}" alt="Weather Icon" />
-    </div>
+    <!-- 👇 에러 메시지 예쁜 박스로 표시 -->
+    <c:if test="${not empty error}">
+        <div class="error-box">
+                ${error}
+        </div>
+    </c:if>
 
-    <div class="info-box">
-        <div class="info-item">
-            <div class="info-title">🌡️ 현재 온도</div>
-            <div class="info-value">${weather.main.temp}°C</div>
+    <!-- 👇 날씨 데이터 있을 때만 출력 -->
+    <c:if test="${not empty weather}">
+        <div class="weather-description">
+            <span>오늘의 날씨: ${weather.weather[0].description}</span>
+            <img class="weather-icon" src="${iconUrl}" alt="Weather Icon" />
         </div>
-        <div class="info-item">
-            <div class="info-title">💦 습도</div>
-            <div class="info-value">${weather.main.humidity}%</div>
+
+        <div class="info-box">
+            <div class="info-item">
+                <div class="info-title">🌡️ 현재 온도</div>
+                <div class="info-value">${weather.main.temp}°C</div>
+            </div>
+            <div class="info-item">
+                <div class="info-title">💦 습도</div>
+                <div class="info-value">${weather.main.humidity}%</div>
+            </div>
+            <div class="info-item">
+                <div class="info-title">🥶 체감 온도</div>
+                <div class="info-value">${weather.main.feels_like}°C</div>
+            </div>
+            <div class="info-item">
+                <div class="info-title">🌡️ 최저 / 최고</div>
+                <div class="info-value">${weather.main.temp_min}°C / ${weather.main.temp_max}°C</div>
+            </div>
+            <div class="info-item">
+                <div class="info-title">🔽 기압</div>
+                <div class="info-value">${weather.main.pressure} hPa</div>
+            </div>
+            <div class="info-item">
+                <div class="info-title">🌬️ 풍속</div>
+                <div class="info-value">${weather.wind.speed} m/s</div>
+            </div>
         </div>
-        <div class="info-item">
-            <div class="info-title">🥶 체감 온도</div>
-            <div class="info-value">${weather.main.feels_like}°C</div>
-        </div>
-        <div class="info-item">
-            <div class="info-title">🌡️ 최저 / 최고</div>
-            <div class="info-value">${weather.main.temp_min}°C / ${weather.main.temp_max}°C</div>
-        </div>
-        <div class="info-item">
-            <div class="info-title">🔽 기압</div>
-            <div class="info-value">${weather.main.pressure} hPa</div>
-        </div>
-        <div class="info-item">
-            <div class="info-title">🌬️ 풍속</div>
-            <div class="info-value">${weather.wind.speed} m/s</div>
-        </div>
-    </div>
+    </c:if>
 
     <div class="search-box">
         <input type="text" id="cityInput" placeholder="도시를 입력하세요 (예: seoul)" />

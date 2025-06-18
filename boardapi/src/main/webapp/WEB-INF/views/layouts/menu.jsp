@@ -1,10 +1,35 @@
-<%-- views/layouts/menu.jsp --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<nav class="navbar navbar-expand-md bg-primary navbar-dark sticky-top">
+
+<style>
+    .custom-navbar {
+        background-color: #a8edea; /* 밝은 민트 색상 */
+        background-image: linear-gradient(315deg, #a8edea 0%, #fed6e3 74%);
+        color: #333;
+    }
+
+    .custom-navbar .navbar-brand,
+    .custom-navbar .nav-link {
+        color: #333 !important;
+        font-weight: 500;
+    }
+
+    .custom-navbar .nav-link:hover {
+        color: #00796b !important; /* 호버 시 진한 민트 */
+    }
+
+    .avatar-sm {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+</style>
+
+<nav class="navbar navbar-expand-md custom-navbar sticky-top">
     <div class="container-fluid">
         <!-- 브랜드 로고 -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
             <i class="fa-solid fa-house"></i> Backend
         </a>
 

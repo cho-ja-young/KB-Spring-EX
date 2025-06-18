@@ -27,7 +27,7 @@ public class WeatherController {
     @GetMapping({"", "/{city}"})
     public String weather(Model model, @PathVariable(value="city", required = false) String city) {
         // 기본값 설젇
-        city = city == null ? "seoul" : city;
+        city = (city == null || city.isBlank()) ? "seoul" : city;
         RestTemplate restTemplate = new RestTemplate();
         String url = UriComponentsBuilder.fromHttpUrl(URL)
                 .queryParam("q", city)
@@ -36,17 +36,22 @@ public class WeatherController {
                 .queryParam("lang", "kr")
                 .toUriString();
 
-        // API 호출 후 응답 받기 (동기식, JSON -> Weahter DTO
-        WeatherDTO weather = restTemplate.getForObject(url, WeatherDTO.class);
+        try {
+            WeatherDTO weather = restTemplate.getForObject(url, WeatherDTO.class);
 
-        //
-        String iconUrl = ICON_URL.formatted(weather.getWeather().get(0).getIcon());
-        log.info("오늘의 날씨: " + weather);
+            String iconUrl = ICON_URL.formatted(weather.getWeather().get(0).getIcon());
+            log.info("오늘의 날씨: " + weather);
 
-        // spring model 객체에 다ㅏ
-        model.addAttribute("city", city);
-        model.addAttribute("weather", weather);
-        model.addAttribute("iconUrl", iconUrl);
+            model.addAttribute("city", city.toUpperCase()); // 💡 대문자 변환
+            model.addAttribute("weather", weather);
+            model.addAttribute("iconUrl", iconUrl);
+
+        } catch (Exception e) {
+            log.warn("도시 정보를 찾을 수 없습니다: " + city);
+            model.addAttribute("city", city.toUpperCase());
+            model.addAttribute("error", "입력하신 도시 '" + city + "'는 존재하지 않습니다.");
+        }
+
         return "weather/today";
     }
 }
