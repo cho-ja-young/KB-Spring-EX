@@ -14,6 +14,7 @@ import java.util.Arrays;
 @Log4j2
 @Component
 public class LogAdvice {
+    // SampleService 로 시작하는 모든 클래스의 모든 메서드 전에 동작
     @Before("execution(* org.scoula.sample.service.SampleService*.*(..))")
     public void logBefore() {
         log.info("==================================");

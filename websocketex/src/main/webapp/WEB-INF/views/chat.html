@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>채팅방</title>
+    <link rel="stylesheet" href="/resources/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+    <script src="/resources/js/stomp-chat.js"></script>
+
+</head>
+<body>
+<div class="chat-container">
+    <header>
+        <h2 id="room-title">채팅방</h2>
+    </header>
+    <ul id="chat-messages" class="messages"></ul>
+    <footer>
+        <input type="text" id="name" placeholder="이름" />
+        <input type="text" id="content" placeholder="메시지 입력" />
+        <button id="send">전송</button>
+    </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+<script src="/resources/js/stomp-chat.js"></script>
+</body>
+</html>
